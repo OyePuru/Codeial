@@ -1,41 +1,51 @@
+<html>
+<head></head>
+<body>
 <section id="feed-posts">
-  <h4>Posts</h4>
+  <br>
   <% if(locals.user) { %>
-    <form action="/posts/create" id="new-post-form" method="POST">
-      <textarea name="content" cols="30" rows="3"
-        placeholder="Make a post and show them what you feel today"></textarea>
-      <input type="submit" value="Post">
+    <form action="/posts/create" style="margin-bottom: 10px;" id="new-post-form" method="POST">
+      <textarea style="margin-right: 5px; margin-top: 10px;" name="content" cols="30" rows="3"
+        placeholder="How are you doing today?"></textarea>
+      <input  type="submit" value="Post">
     </form>
     <% } %>
     <ul>
-      <% for (post of posts) { %>
-        <li>
-          <%= post.content %>
-            <br>
-            <small>
-              <%= post.user.name %>
-            </small>
-            <div>
+      <% postlen = posts.length-1 %>
+      <% for (var ind=postlen;ind>-1;ind-=1) { %>
+        <% post=posts[ind] %>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <small class="card-title"><b><%= post.user.name %></b></small>
+              <p class="card-text"><%= post.content %></p>
+              <br>
+                <% for (comment of post.comments) { %>
+                  <p>
+                    <%= comment.content %>
+                    <br>
+                    <span class="badge rounded-pill bg-secondary"> <%= comment.user.name %></span>
+                  </p>
+                <% } %>
+            </div>
+          </div>
               <% if(locals.user) { %>
-              <form action="/comments/create" method="POST">
-                <input type="text" name="content" placeholder="Your thoughts ..">
+              <form style="padding-top: 10px;" action="/comments/create" method="POST">
+                <input type="text" name="content" style="border-radius: 8px; margin-bottom: 5px;" placeholder="Your thoughts ..">
                 <input type="hidden" name="post" value="<%= post._id %>" >
-                <input type="submit" value="Comment">
+                <input  type="submit" value="Comment">
               </form>
               <% } %>
-              <div>
-                <ul>
-                  <% for (comment of post.comments) { %>
-                    <p>
-                      <%= comment.content %>
-                      <br>
-                      <small> <%= comment.user.name %></small>
-                    </p>
-                  <% } %>
-                </ul>
-              </div>
+              <br>
             </div>
-        </li>
       <% } %>
       </ul>
 </section>
+</body>
+</html>
+<style>
+#feed-posts{
+  margin-top:5%;
+  margin-right:65%;
+  margin-left: 35%;
+}
+</style>
