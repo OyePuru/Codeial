@@ -23,12 +23,19 @@
                       <span class="badge bg-danger">Delete</span>
                     </a>
                 </small>
-          <% } %>
+              <% } %>
               <p class="card-text"><%= post.content %></p>
               <br>
                 <% for (comment of post.comments) { %>
                   <p>
                     <%= comment.content %>
+                    <% if (locals.user && (locals.user.id == comment.user.id)){ %>
+                      <small>
+                        <a href="/comments/destroy/<%= comment.id %>">
+                            <span class="badge bg-danger">Delete</span>
+                          </a>
+                      </small>
+                    <% } %>
                     <br>
                     <span class="badge rounded-pill bg-secondary"> <%= comment.user.name %></span>
                   </p>
