@@ -1,6 +1,14 @@
 <p>
-    <%= user.name %>
+    <%= user_profile.name %>
 </p>
 <p>
-    <%= user.email %>
+    <%= user_profile.email %>
 </p>
+
+<% if ( user_profile.id == user.id ) {%>
+    <form action="/users/update/<%= user.id %>" method="POST">
+        <input type="text" name="name" placeholder="Your Name" value="<%= user.name %>">
+        <input type="email" name="email" placeholder="Your Email" value="<%= user.email %>">
+        <input type="submit" value="update">
+    </form>
+<% } %>
