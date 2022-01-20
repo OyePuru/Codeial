@@ -67,7 +67,15 @@ module.exports.create = function(req, res){
 
     });
 }
-
+    
+module.exports.connect = function(req,res){   
+    User.find({},function (err,users) {
+        if(err) throw err
+        return res.render('connect',{
+          all_users : users
+        })
+    })
+}
 
 // sign in and create a session for the user
 module.exports.createSession = function(req, res){

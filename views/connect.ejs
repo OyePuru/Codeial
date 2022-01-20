@@ -1,0 +1,6 @@
+<section>
+  <br>
+  <% for ( user of all_users ) { %>
+    <ul><li><a href="/users/profile/<%= user.id %>"><%= user.name %></a></li></ul>
+  <% } %>
+</section>
