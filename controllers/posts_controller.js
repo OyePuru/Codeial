@@ -5,6 +5,9 @@ module.exports.create = async (req, res) => {
   try {
     if (!req.user) {
       return res.redirect('back');
+    } else if (!req.body.content) {
+      req.flash('error', "Post Can't be empty");
+      return res.redirect('back');
     }
     await Post.create({
       content: req.body.content,
