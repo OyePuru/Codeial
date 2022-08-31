@@ -51,6 +51,7 @@ module.exports.signIn = (req, res) => {
 module.exports.create = async (req, res) => {
 	try {
 		if (req.body.password != req.body.confirm_password) {
+			req.flash('error', "Password Didn't Matched!");
 			return res.redirect('back');
 		}
 		const user = await User.findOne({ email: req.body.email });
@@ -83,5 +84,6 @@ module.exports.createSession = (req, res) => {
 
 module.exports.destroySession = (req, res) => {
 	req.logout();
+	req.flash('success', 'You have logged out!');
 	return res.redirect('/');
 }
